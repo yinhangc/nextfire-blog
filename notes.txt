@@ -1,0 +1,12 @@
+Auth 
+- No need server-side rendering if search engine doesn't need to see tht content 
+--> Render on client / Set up an API route 
+
+- Use useContext to store auth info 
+
+- useAuthState listen to current user in firebase 
+--> vs. onAuthStateChanged(): needs a user obj 
+
+- Reverse mapping validating uniqueness: 
+  User contains username field, photo field, displayName field 
+  Username contains only 1 uid field 
