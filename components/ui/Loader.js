@@ -1,3 +1,5 @@
-export default function Loader({ show }) {
-  return show ? <div className="loader mx-auto"></div> : null;
+export default function Loader({ show, className }) {
+  return show ? (
+    <div className={`loader mx-auto${className ? className : ''}`}></div>
+  ) : null;
 }

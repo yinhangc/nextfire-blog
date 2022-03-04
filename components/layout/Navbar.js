@@ -10,14 +10,18 @@ export default function Navbar({}) {
       <ul className="flex items-center justify-between h-full">
         <li>
           <Link href="/">
-            <button className="text-white px-4 py-2 bg-black">BLOG</button>
+            <button className="text-white px-5 py-2 bg-black">
+              <span className="mr-2.5 pb-[1px]">🏠</span>主頁
+            </button>
           </Link>
         </li>
         {username && (
           <>
             <li className="ml-auto mr-3">
               <Link href="/admin">
-                <button className="bg-blue text-white">Write Posts</button>
+                <button className="bg-blue text-white">
+                  <span className="mr-2.5">✏️</span>寫帖子
+                </button>
               </Link>
             </li>
             <li>

@@ -9,7 +9,7 @@ export default function PostContent({ post }) {
       : post.createdAt.toDate();
 
   return (
-    <Card className="grid grid-cols-1 auto-rows-min">
+    <Card className=" grid grid-cols-1 auto-rows-min">
       <h1>{post?.title}</h1>
       <span className="text-sm mb-6">
         Written by{' '}

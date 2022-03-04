@@ -1,21 +1,27 @@
 import { firestore, getUserWithUsername, postToJSON } from '../../lib/firebase';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import PostContent from '../../components/shared/PostContent';
+import Loader from '../../components/ui/Loader';
 
 export default function Post(props) {
   const postRef = firestore.doc(props.path);
-  const [realtimePost] = useDocumentData(postRef);
+  const [realtimePost, loading] = useDocumentData(postRef);
 
   const post = realtimePost || props.post; // SSR / realtime
 
   return (
     <main className="grid grid-cols-[1fr,max-content] gap-4">
-      <PostContent post={post} />
-      <aside className="bg-white p-8 rounded-lg shadow">
-        <p>
-          <strong>{post.heartCount || 0} 🤍</strong>
-        </p>
-      </aside>
+      {loading && <Loader show className=" col-span-2" />}
+      {!loading && (
+        <>
+          <PostContent post={post} />
+          <aside className="bg-white p-8 rounded-lg shadow">
+            <p>
+              <strong>{post.heartCount || 0} 🤍</strong>
+            </p>
+          </aside>
+        </>
+      )}
     </main>
   );
 }

@@ -44,7 +44,7 @@ export default function Home(props) {
       <Loader show={loading} />
       {postsEnd && (
         <p className="mx-auto">
-          <span className="mr-2">✅</span>已加載全部內容
+          <span className="mr-2.5">✅</span>已加載全部內容
         </p>
       )}
     </main>
