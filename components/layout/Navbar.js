@@ -6,7 +6,7 @@ export default function Navbar({}) {
   const { user, username } = useContext(UserContext);
 
   return (
-    <nav className="fixed top-0 px-[10%] h-[70px] w-full bg-white z-40 border-b-[1px] border-gray">
+    <nav className="fixed top-0 px-[10%] h-[70px] w-full bg-white z-40 border-b-[1px] border-gray shadow-sm">
       <ul className="flex items-center justify-between h-full">
         <li>
           <Link href="/">

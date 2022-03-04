@@ -10,3 +10,8 @@ Auth
 - Reverse mapping validating uniqueness: 
   User contains username field, photo field, displayName field 
   Username contains only 1 uid field 
+
+SSR
+- SSR getServerSideProps(): fetch data on server for every request, prevent render until server is available --> Slower
+- SSG getStaticProps(): fetch data in advance in build-time --> Fast bt hv to redeploy entire site to hv new data 
+- ISR revalidate: regenerate page when new request come in for a certain interval 

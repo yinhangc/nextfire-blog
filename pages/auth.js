@@ -10,7 +10,7 @@ export default function Auth(props) {
   return (
     <main>
       <h1 className="mb-3">登入</h1>
-      {loading && <Loader show />}
+      <Loader show={loading} />
       {!loading && user && !username && <UsernameForm />}
       {!loading && user && username && <AuthButton action="logout" />}
       {!loading && !user && <AuthButton action="login" />}
