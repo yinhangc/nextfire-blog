@@ -13,7 +13,7 @@ export default function Post(props) {
   const post = realtimePost || props.post; // SSR / realtime
 
   return (
-    <main className="grid grid-cols-[1fr,max-content] gap-4">
+    <main className="grid gird-cols-1 auto-rows-min sm:grid-cols-[1fr,max-content] gap-4">
       {loading && <Loader show className=" col-span-2" />}
       {!loading && (
         <>
