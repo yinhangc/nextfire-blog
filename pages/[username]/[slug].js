@@ -2,6 +2,9 @@ import { firestore, getUserWithUsername, postToJSON } from '../../lib/firebase';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import PostContent from '../../components/shared/PostContent';
 import Loader from '../../components/ui/Loader';
+import AuthCheck from '../../components/admin/AuthCheck';
+import LikeButton from '../../components/shared/LikeButton';
+import Link from 'next/link';
 
 export default function Post(props) {
   const postRef = firestore.doc(props.path);
@@ -15,10 +18,19 @@ export default function Post(props) {
       {!loading && (
         <>
           <PostContent post={post} />
-          <aside className="bg-white p-8 rounded-lg shadow">
-            <p>
-              <strong>{post.heartCount || 0} 🤍</strong>
-            </p>
+          <aside className="bg-white p-6 rounded-lg shadow flex flex-col justify-center items-center gap-4">
+            <div className="font-bold">{post.likeCount || 0} 💗</div>
+            <AuthCheck
+              fallback={
+                <Link href="/auth">
+                  <button>
+                    <span className="mr-2.5">❤️</span>請先登入
+                  </button>
+                </Link>
+              }
+            >
+              <LikeButton postRef={postRef} />
+            </AuthCheck>
           </aside>
         </>
       )}

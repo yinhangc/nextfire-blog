@@ -18,8 +18,8 @@ function PostItem({ post, admin = false }) {
   return (
     <Card className=" grid auto-rows-min gap-2 hover:scale-105 cursor-pointer transition-all">
       <Link href={`/${post.username}`}>
-        <a>
-          <strong>By @{post.username}</strong>
+        <a className="font-bold">
+          By <span className="text-blue">@{post.username}</span>
         </a>
       </Link>
       <Link href={`/${post.username}/${post.slug}`}>
@@ -33,7 +33,7 @@ function PostItem({ post, admin = false }) {
         </span>
         <span>
           <span className="mr-2.5">💗</span>
-          {post.heartCount || 0}
+          {post.likeCount || 0}
         </span>
       </footer>
       {admin && (

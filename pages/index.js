@@ -3,7 +3,7 @@ import Loader from '../components/ui/Loader';
 import PostFeed from '../components/shared/PostFeed';
 import { firestore, postToJSON, fromMillis } from '../lib/firebase';
 
-const LIMIT = 1;
+const LIMIT = 10;
 
 export default function Home(props) {
   const [posts, setPosts] = useState(props.posts); // Fetch additional posts when user requests

@@ -30,17 +30,17 @@ export default function CreateNewPost(props) {
       content: '# hello world',
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-      heartCount: 0,
+      likeCount: 0,
     };
     await ref.set(data);
-    toast.success('已創建帖子 😄');
+    toast.success('已創建帖子');
     router.push(`/admin/${slug}`);
   };
 
   return (
     <div>
       <h2 className="mb-2.5">
-        <span className="mr-2.5">📝</span>創建帖子
+        <span className="mr-2.5">🖌</span>創建帖子
       </h2>
       <form
         className="grid grid-colso1 auto-rows-min gap-3"

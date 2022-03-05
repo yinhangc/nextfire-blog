@@ -16,7 +16,6 @@ export default function PostList(props) {
 
   useEffect(() => {
     setPosts(snapshot?.docs.map((doc) => doc.data()));
-    console.log(posts);
   }, [snapshot]);
 
   return (

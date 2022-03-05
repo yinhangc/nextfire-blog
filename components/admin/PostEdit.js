@@ -27,7 +27,7 @@ export default function PostEdit(props) {
     <main>
       {loading && <Loader show />}
       {!loading && post && (
-        <div className="grid sm:grid-cols-[1fr,max-content] gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr,max-content] gap-4">
           <section>
             <h1>{post.title}</h1>
             <p className="mb-4">
@@ -40,7 +40,7 @@ export default function PostEdit(props) {
               preview={preview}
             />
           </section>
-          <aside className="bg-white p-8 rounded-lg shadow flex flex-col items-center justify-center gap-4 h-[max-content]">
+          <aside className="bg-white p-6 rounded-lg shadow flex flex-col items-center justify-center gap-4 h-[max-content]">
             <button onClick={() => setPreview(!preview)} className="w-full">
               {preview ? '編輯' : '預覧'}
             </button>

@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../ui/Card';
 import ReactMarkdown from 'react-markdown';
@@ -7,7 +6,6 @@ import toast from 'react-hot-toast';
 import ImageUpload from '../shared/ImageUpload';
 
 export default function PostForm({ defaultValues, postRef, preview }) {
-  const checkboxRef = useRef();
   const { register, handleSubmit, reset, watch, formState } = useForm({
     defaultValues,
     mode: 'onChange',
@@ -28,11 +26,13 @@ export default function PostForm({ defaultValues, postRef, preview }) {
   return (
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
-        <Card>
-          <ReactMarkdown>{watch('content')}</ReactMarkdown>
-        </Card>
+        <>
+          <Card>
+            <ReactMarkdown>{watch('content')}</ReactMarkdown>
+          </Card>
+        </>
       )}
-      <div className={preview ? 'hidden' : ''}>
+      <div className={preview ? 'hidden' : 'grid gap-3'}>
         <ImageUpload />
         <textarea
           {...register('content', {
@@ -48,7 +48,6 @@ export default function PostForm({ defaultValues, postRef, preview }) {
         <fieldset className="flex items-center">
           <input
             id="published"
-            ref={checkboxRef}
             type="checkbox"
             {...register('published')}
             className="inline mr-2 cursor-pointer h-4 w-4"
