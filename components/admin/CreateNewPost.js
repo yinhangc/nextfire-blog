@@ -15,26 +15,40 @@ export default function CreateNewPost(props) {
 
   const createPost = async (e) => {
     e.preventDefault();
-    const uid = auth.currentUser.uid;
-    const ref = firestore
-      .collection('users')
-      .doc(uid)
-      .collection('posts')
-      .doc(slug);
-    const data = {
-      title,
-      slug,
-      uid,
-      username,
-      published: false,
-      content: '# hello world',
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-      likeCount: 0,
-    };
-    await ref.set(data);
-    toast.success('已創建帖子');
-    router.push(`/admin/${slug}`);
+    try {
+      const ref = firestore.doc(`postnames/${slug}`);
+      const { exists } = await ref.get();
+      if (exists) {
+        toast.error('創建失敗，相同的帖子ID已存在');
+        return;
+      }
+      const batch = firestore.batch();
+      const uid = auth.currentUser?.uid;
+      const userPostDoc = firestore
+        .collection('users')
+        .doc(uid)
+        .collection('posts')
+        .doc(slug);
+      const postnameDoc = firestore.doc(`postnames/${slug}`);
+      const data = {
+        title,
+        slug,
+        uid,
+        username,
+        published: false,
+        content: '# hello world',
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+        likeCount: 0,
+      };
+      batch.set(userPostDoc, data);
+      batch.set(postnameDoc, { uid });
+      await batch.commit();
+      toast.success('已創建帖子');
+      router.push(`/admin/${slug}`);
+    } catch (err) {
+      toast.error('創建失敗');
+    }
   };
 
   return (

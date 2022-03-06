@@ -9,11 +9,9 @@ export default function ImageUpload() {
 
   const uploadFile = async (e) => {
     const file = Array.from(e.target.files)[0];
-    console.log(file);
-    console.log(file.type);
     const extension = file.type.split('/')[1];
     const ref = storage.ref(
-      `uploads/${auth.currentUser.uid}/${Date.now()}.${extension}`
+      `uploads/${auth.currentUser?.uid}/${Date.now()}.${extension}`
     );
     setUploading(true);
     const task = ref.put(file);
@@ -55,6 +53,7 @@ export default function ImageUpload() {
             <span className="mr-2.5">📷</span>上傳照片
             <input
               type="file"
+              className="hidden"
               onChange={uploadFile}
               accept="image/x-png,image/gif,image/jpeg"
             />

@@ -1,13 +1,15 @@
 import { auth, googleAuthProvider } from '../../lib/firebase';
+import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
 export default function AuthButton({ action }) {
+  const router = useRouter();
   const signInWithGoogle = async () => {
     try {
       await auth.signInWithPopup(googleAuthProvider);
+      router.push('/admin');
     } catch (err) {
       toast.error('登入失敗');
-      console.error(err);
     }
   };
 
@@ -16,7 +18,6 @@ export default function AuthButton({ action }) {
       await auth.signOut();
     } catch (err) {
       toast.error('登出失敗');
-      console.error(err);
     }
   };
 

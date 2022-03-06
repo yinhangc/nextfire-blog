@@ -6,7 +6,7 @@ export default function LikeButton({ postRef }) {
   const [heartDoc] = useDocument(heartRef);
 
   const addLike = async () => {
-    const uid = auth.currentUser.uid;
+    const uid = auth.currentUser?.uid;
     const batch = firestore.batch();
     batch.update(postRef, { likeCount: increment(1) });
     batch.set(heartRef, { uid });

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useContext } from 'react';
 import { UserContext } from '../../lib/context';
+import AuthButton from '../auth/AuthButton';
 
 export default function Navbar({}) {
   const { user, username } = useContext(UserContext);
@@ -16,8 +17,8 @@ export default function Navbar({}) {
           </Link>
         </li>
         {username && (
-          <>
-            <li className="ml-auto mr-3">
+          <div className="flex gap-3">
+            <li>
               <Link href="/admin">
                 <button className="bg-blue text-white">
                   <span className="mr-2.5">✏️</span>寫帖子
@@ -25,14 +26,17 @@ export default function Navbar({}) {
               </Link>
             </li>
             <li>
+              <AuthButton action="logout" />
+            </li>
+            <li>
               <Link href={`/${username}`}>
                 <img
-                  src={user?.photoURL}
+                  src={user?.photoURL || '/icon.png'}
                   className="w-12 h-12 rounded-full cursor-pointer"
                 />
               </Link>
             </li>
-          </>
+          </div>
         )}
         {!username && (
           <>

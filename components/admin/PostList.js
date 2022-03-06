@@ -7,7 +7,7 @@ import Loader from '../ui/Loader';
 export default function PostList(props) {
   const query = firestore
     .collection('users')
-    .doc(auth.currentUser.uid)
+    .doc(auth.currentUser?.uid)
     .collection('posts')
     .orderBy('createdAt');
   // Client-side render
@@ -23,7 +23,7 @@ export default function PostList(props) {
       <h2 className="mb-2.5">
         <span className="mr-2.5">📝</span>管理帖子
       </h2>
-      {loading && <Loader show />}
+      <Loader show={loading} />
       {!loading && posts && <PostFeed posts={posts} admin />}
     </div>
   );

@@ -23,9 +23,19 @@ export default function PostEdit(props) {
     setPost(data);
   }, [data]);
 
+  const deletePost = async () => {
+    try {
+      await postRef.delete();
+      router.push('/admin');
+      toast.success('刪除成功');
+    } catch (err) {
+      toast.error('刪除失敗');
+    }
+  };
+
   return (
     <main>
-      {loading && <Loader show />}
+      <Loader show={loading} />
       {!loading && post && (
         <div className="grid grid-cols-1 md:grid-cols-[1fr,max-content] gap-4">
           <section>
@@ -47,6 +57,11 @@ export default function PostEdit(props) {
             <Link href={`/${post.username}/${post.slug}`}>
               <button className="bg-blue text-white w-full">前往帖子</button>
             </Link>
+            {!preview && (
+              <button onClick={deletePost} className="w-full bg-red text-white">
+                刪除帖子
+              </button>
+            )}
           </aside>
         </div>
       )}

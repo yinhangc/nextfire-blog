@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext, useCallback } from 'react';
 import { UserContext } from '../../lib/context';
 import { firestore } from '../../lib/firebase';
+import { useRouter } from 'next/router';
 import debounce from 'lodash.debounce';
 import UsernameMessage from './UsernameMessage';
 
 export default function UsernameForm(props) {
+  const router = useRouter();
   const [formValue, setFormValue] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +17,6 @@ export default function UsernameForm(props) {
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();
-        console.log('Firestore read executed!');
         setIsValid(!exists);
         setIsLoading(false);
       }
@@ -41,21 +42,20 @@ export default function UsernameForm(props) {
       });
       batch.set(usernameDoc, { uid: user.uid });
       await batch.commit();
-    } catch (err) {
-      console.error(err);
-    }
+      router.push('/admin');
+    } catch (err) {}
   };
 
   const onChange = (e) => {
     const val = e.target.value.toLowerCase();
+    setIsValid(false);
     if (val.length < 3) {
       setFormValue(val);
       setIsLoading(false);
-      setIsValid(false);
+    } else {
+      setFormValue(val); // trigger useEffect to check username
+      setIsLoading(true);
     }
-    setFormValue(val); // trigger useEffect to check username
-    setIsLoading(true);
-    setIsValid(false);
   };
 
   return (
@@ -72,23 +72,15 @@ export default function UsernameForm(props) {
           <UsernameMessage
             username={formValue}
             isValid={isValid}
-            loading={isLoading}
+            isLoading={isLoading}
           />
           <button
             type="submit"
             className="bg-green text-white"
             disabled={!isValid}
           >
-            Choose!
+            決定!
           </button>
-          <h3>Debug State</h3>
-          <div>
-            Username: {formValue}
-            <br />
-            Loading: {isLoading.toString()}
-            <br />
-            Username Valid: {isValid.toString()}
-          </div>
         </form>
       </section>
     )

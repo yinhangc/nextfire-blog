@@ -14,7 +14,7 @@ export default function Post(props) {
 
   return (
     <main className="grid gird-cols-1 auto-rows-min sm:grid-cols-[1fr,max-content] gap-4">
-      {loading && <Loader show className=" col-span-2" />}
+      <Loader show={loading} className=" col-span-2" />
       {!loading && (
         <>
           <PostContent post={post} />
