@@ -9,6 +9,7 @@ export default function AuthButton({ action }) {
       await auth.signInWithPopup(googleAuthProvider);
       router.push('/admin');
     } catch (err) {
+      console.error(err);
       toast.error('登入失敗');
     }
   };
